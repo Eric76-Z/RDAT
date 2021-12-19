@@ -15,35 +15,52 @@ path_conf = [
     'location_map_conf_path'
 ]
 
-origin_path_json = {
-    'workspace_path': '',
-    'database_path': '',
-    'rob_backup_path': '',
-    'rob_dicorder_pool_path': '',
-    'report_path': {
-        'robBackupReform': ''
-    },
-    'location_map_conf_path': ''
+origin_setting = {
+    'path_conf': {
+        'workspace_path': '',
+        'database_path': '',
+        'rob_backup_path': '',
+        'rob_dicorder_pool_path': '',
+        'report_path': {
+            'rob_backup_reform': ''
+        },
+        'configure_path': '',
+        'location_map_conf_path': ''
+    }
 }
 
+# class origin_setting():
+#     def __init__(self):
+#         self.path = {
+#             'workspace_path': '',
+#             'database_path': '',
+#             'rob_backup_path': '',
+#             'rob_dicorder_pool_path': '',
+#             'report_path': {
+#                 'robBackupReform': ''
+#             },
+#             'configure_path': '',
+#             'location_map_conf_path': ''
+#         }
+#         self.state = 'outsync'
+#
+#     def syncPath(self):
+#         if self.state == 'outsync':
+#             self.path['database_path'] = self.path['workspace_path'] + '/database'
+#             self.path['rob_backup_path'] = self.path['workspace_path'] + '/rob_backup_reform'
+#             self.path['rob_dicorder_pool_path'] = self.path['workspace_path'] + '/rob_dicorder_pool'
+#             self.path['report_path'] = {
+#                 'robBackupReform': self.path['workspace_path'] + '/report/rob_backup_reform'
+#             }
+#             self.path['configure_path'] = self.path['workspace_path'] + '/configure'
+#             self.path['location_map_conf_path'] = self.path['workspace_path'] + '/configure/location_map.json'
+#             self.state = 'sync'
+#         print(self.path)
 
-class origin_setting():
-    def __init__(self):
-        self.path = {
-            'workspace_path': '',
-            'database_path': self.path['workspace_path'] + '/database',
-            'rob_backup_path': self.path['workspace_path'] + '/rob_backup_reform',
-            'rob_dicorder_pool_path': self.path['workspace_path'] + '/rob_dicorder_pool',
-            'report_path': {
-                'robBackupReform': self.path['workspace_path'] + '/report/rob_dicorder_pool'
-            },
-            'configure_path': self.path['workspace_path'] + '/configure',
-            'location_map_conf_path': self.path['workspace_path'] + '/configure/location_map.json'
-        }
 
-    WORKSPACE_PATH = 'workspace_path'
-    ROB_BACKUP_REFORM = 'rob_backup_reform'
-    ROB_BACKUP_PATH = 'rob_backup_path'
-    ROB_DISORDER_POOL_PATH = 'rob_dicorder_pool_path'
-    REPORT_PATH = 'report_path'
-    LOCATION_MAP_CONF_JSON = 'location_map_conf_path'
+WORKSPACE_PATH = 'workspace_path'
+ROB_BACKUP_REFORM = 'rob_backup_reform'
+ROB_BACKUP_PATH = 'rob_backup_path'
+ROB_DISORDER_POOL_PATH = 'rob_dicorder_pool_path'
+REPORT_PATH = 'report_path'
+LOCATION_MAP_CONF_JSON = 'location_map_conf_path'

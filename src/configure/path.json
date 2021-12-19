@@ -1,9 +1,1 @@
-{
-  "rob_backup_path": "F:/\u673a\u5668\u4eba\u5907\u4efdGUI/\u673a\u5668\u4eba\u5907\u4efd",
-  "rob_dicorder_pool_path": "F:/\u673a\u5668\u4eba\u5907\u4efd/rob backup pool",
-  "report_path": {
-    "rob_backup_reform": "F:/\u673a\u5668\u4eba\u5907\u4efdGUI/report"
-  },
-  "location_map_conf_path": "D:/01MyCode/py/pygui/RDAT/src/configure/path.json",
-  "workspace_path": "F:/ws1"
-}
+{"rob_backup_path": "F:/ws1/rob_backup_reform", "rob_dicorder_pool_path": "F:/ws1/rob_dicorder_pool", "report_path": {"rob_backup_reform": "F:/ws1/report/rob_backup_reform"}, "location_map_conf_path": "F:/ws1/configure/location_map.json", "workspace_path": "F:/ws1", "database_path": "F:/ws1/database", "configure_path": "F:/ws1/configure"}

@@ -24,7 +24,7 @@
 *.tar
 *.tar
 *.csv
-
+*.json
 
 #Pycharm specific
 .idea
