@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1191</width>
-    <height>825</height>
+    <width>1161</width>
+    <height>857</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -54,8 +54,14 @@
                      <property name="enabled">
                       <bool>true</bool>
                      </property>
+                     <property name="whatsThis">
+                      <string/>
+                     </property>
                      <property name="text">
                       <string/>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
                      </property>
                      <property name="placeholderText">
                       <string>点击按钮选择工作空间的根目录...</string>
@@ -135,6 +141,9 @@
                      <property name="text">
                       <string/>
                      </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
                      <property name="placeholderText">
                       <string>点击按钮选择机器人备份重组后文件夹所在路径...</string>
                      </property>
@@ -182,6 +191,9 @@
                      <property name="text">
                       <string/>
                      </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
                      <property name="placeholderText">
                       <string>点击按钮选择机器人备份重组报告存放文件夹路径(推荐默认路径)...</string>
                      </property>
@@ -212,6 +224,9 @@
                      </property>
                      <property name="text">
                       <string/>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
                      </property>
                      <property name="placeholderText">
                       <string>点击按钮选择机器人备份乱序文件夹的路径...</string>
@@ -271,6 +286,9 @@
                  </property>
                  <property name="text">
                   <string/>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
                  </property>
                  <property name="placeholderText">
                   <string>点击按钮选择机器人备份路径配置文件(推荐默认配置文件)...</string>
@@ -342,17 +360,11 @@ p, li { white-space: pre-wrap; }
             <property name="title">
              <string>结果</string>
             </property>
-            <layout class="QGridLayout" name="gridLayout_3">
-             <property name="sizeConstraint">
-              <enum>QLayout::SetNoConstraint</enum>
-             </property>
-             <property name="verticalSpacing">
-              <number>6</number>
-             </property>
+            <layout class="QGridLayout" name="gridLayout_8">
              <item row="0" column="0">
               <layout class="QVBoxLayout" name="verticalLayout_2">
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_result">
+                <layout class="QHBoxLayout" name="horizontalLayout">
                  <item>
                   <widget class="QPushButton" name="pushButton_start">
                    <property name="text">
@@ -377,7 +389,32 @@ p, li { white-space: pre-wrap; }
                 </layout>
                </item>
                <item>
-                <widget class="QTextBrowser" name="textBrowser_log"/>
+                <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3,2">
+                 <item>
+                  <widget class="QGroupBox" name="groupBox_log">
+                   <property name="title">
+                    <string>记录</string>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_3">
+                    <item row="0" column="0">
+                     <widget class="QTextBrowser" name="textBrowser_log"/>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QGroupBox" name="groupBox_error">
+                   <property name="title">
+                    <string>报错</string>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_7">
+                    <item row="0" column="0">
+                     <widget class="QTextBrowser" name="textBrowser_error"/>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
                </item>
               </layout>
              </item>
@@ -398,7 +435,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1191</width>
+     <width>1161</width>
      <height>23</height>
     </rect>
    </property>

@@ -12,9 +12,6 @@ class load_conf():
         # 路径配置
         path_conf = load_path_conf()
         self.path_conf = path_conf
-        # 缓存配置
-        cache_conf = load_cache_conf()
-        self.cache_conf = cache_conf
 
     def updateAll(self):
         pass
@@ -43,20 +40,7 @@ class load_path_conf():
             f.close()
 
 
-class load_cache_conf():
-    def __init__(self):
-        with open(cache_json, 'r', encoding='utf-8') as f:
-            CACHE_JSON = json.load(f)
-            f.close()
-        self.CACHE_JSON = CACHE_JSON
-
-    def updateCache(self):
-        with open(path_json, 'w', encoding='utf-8') as f:
-            f.write(json.dumps(self.CACHE_JSON))
-            f.close()
-
-
-class Ui_Mainwindows():
+class RobBackupReform():
     def __init__(self):
         # 从文件中加载UI定义
         # 从 UI 定义中动态 创建一个相应的窗口对象
@@ -70,8 +54,6 @@ class Ui_Mainwindows():
     def process(self):
         # 载入配置文件
         self.syncConfigure()
-        # pushButton连接
-        self.buttonConnect()
         # widgetInit状态初始化
         self.widgetInit()
 
@@ -83,44 +65,21 @@ class Ui_Mainwindows():
         self.ui.lineEdit_report_path.setText(conf.path_conf.PATH_JSON[REPORT_PATH][ROB_BACKUP_REFORM])
         self.ui.lineEdit_configure.setText(conf.path_conf.PATH_JSON[LOCATION_MAP_CONF_JSON])
 
-        # widget状态同步， 控件做出相应改变
-        self.syncWidget()
-
     def widgetInit(self):
-        # pushButton初始化
-        # 当未指定工作空间根目录时候，设置按钮不可用
-        # if conf.path_conf.PATH_JSON[WORKSPACE_PATH] == '':
-        #     self.ui.pushButton_recommend.setEnabled(False)
-        # self.ui.pushButton_edit_configure.setEnabled(False)
-        self.ui.pushButton_report.setEnabled(False)
-        # if conf.path_conf.PATH_JSON[ROB_BACKUP_PATH] == '' or conf.path_conf.PATH_JSON[ROB_DISORDER_POOL_PATH] == '' or \
-        #         conf.path_conf.PATH_JSON[REPORT_PATH][ROB_BACKUP_REFORM] == '' or conf.path_conf.PATH_JSON[
-        #     LOCATION_MAP_CONF_JSON] == '':
-        #     self.ui.pushButton_start.setEnabled(False)
-        # 进度条初始化
-        self.ui.progressBar_result.setValue(0)
-
-    def syncWidget(self):
         # pushButton初始化
         # 当未指定工作空间根目录时候，设置按钮不可用
         if conf.path_conf.PATH_JSON[WORKSPACE_PATH] == '':
             self.ui.pushButton_recommend.setEnabled(False)
-        else:
-            self.ui.pushButton_recommend.setEnabled(True)
-        # 选择配置文件
-        if conf.path_conf.PATH_JSON[LOCATION_MAP_CONF_JSON] == '':
-            self.ui.pushButton_edit_configure.setEnabled(False)
-        else:
-            self.ui.pushButton_edit_configure.setEnabled(True)
-        # 开始按钮
-        if (conf.path_conf.PATH_JSON[ROB_BACKUP_PATH] == '' or conf.path_conf.PATH_JSON[ROB_DISORDER_POOL_PATH] == '' or \
-            conf.path_conf.PATH_JSON[REPORT_PATH][ROB_BACKUP_REFORM] == '' or conf.path_conf.PATH_JSON[
-                LOCATION_MAP_CONF_JSON] == '') or (
-                conf.path_conf.PATH_JSON[WORKSPACE_PATH] == '' or conf.path_conf.PATH_JSON[
-            LOCATION_MAP_CONF_JSON] == ''):
+        self.ui.pushButton_edit_configure.setEnabled(False)
+        self.ui.pushButton_report.setEnabled(False)
+        if conf.path_conf.PATH_JSON[ROB_BACKUP_PATH] == '' or conf.path_conf.PATH_JSON[ROB_DISORDER_POOL_PATH] == '' or \
+                conf.path_conf.PATH_JSON[REPORT_PATH][ROB_BACKUP_REFORM] == '' or conf.path_conf.PATH_JSON[
+            LOCATION_MAP_CONF_JSON] == '':
             self.ui.pushButton_start.setEnabled(False)
-        else:
-            self.ui.pushButton_start.setEnabled(True)
+        # pushButton连接
+        self.buttonConnect()
+        # 进度条初始化
+        self.ui.progressBar_result.setValue(0)
 
     def buttonConnect(self):
         # =========机器人备份重组=========
@@ -141,7 +100,6 @@ class Ui_Mainwindows():
         if folder_path != '':
             if target == WORKSPACE_PATH:
                 conf.path_conf.PATH_JSON[WORKSPACE_PATH] = folder_path
-                # self.setTextBorwser('error')
             elif target == ROB_BACKUP_PATH:
                 conf.path_conf.PATH_JSON[ROB_BACKUP_PATH] = folder_path
                 self.setWorkspaceNull()
@@ -186,23 +144,12 @@ class Ui_Mainwindows():
         # 设置工作空间根目录为空
         conf.path_conf.PATH_JSON[WORKSPACE_PATH] = ''
         self.ui.lineEdit_workspace_path.setText('')
-        self.ui.pushButton_recommend.setEnabled(False)
 
     def setTextBorwser(self, target):
         if target == 'error':
-            self.ui.textBrowser_error.append('<p>Hello World!</p>')
+            pass
         elif target == 'log':
             pass
         else:
             print('写入未知错误')
 
-
-def main():
-    app = QApplication([])
-    mainwindow = Ui_Mainwindows()
-    mainwindow.ui.show()
-    app.exec_()
-
-
-if __name__ == '__main__':
-    main()

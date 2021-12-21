@@ -4,6 +4,7 @@ from os.path import dirname, abspath
 base_dir = dirname(dirname(abspath(__file__)))
 
 path_json = 'configure/path.json'
+cache_json = 'configure/cache.json'
 main_ui_path = 'ui/main.ui'
 configure_path = '/configure/'
 
@@ -26,6 +27,11 @@ origin_setting = {
         },
         'configure_path': '',
         'location_map_conf_path': ''
+    },
+    'cache_conf': {
+        'tabWidget_rob_backup_reform': {
+            'curr_index': 0,
+        }
     }
 }
 

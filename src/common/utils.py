@@ -3,8 +3,6 @@ import os
 import time
 
 
-
-
 def logWrite(wb, controllername, sort, msg):
     sh = wb['log']
     # row_now = sh.max_row
