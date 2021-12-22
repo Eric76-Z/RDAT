@@ -23,19 +23,28 @@ class load_conf():
 class load_path_conf():
     def __init__(self):
         with open(path_json, 'r', encoding='utf-8') as f:
-            PATH_JSON = json.load(f)
-            # 净化配置文件
-            # setting.path_conf 中存在，PATH_JSON中不存在的元素，需要新增并赋值初始设定值
-            for o in origin_setting['path_conf']:
-                if o not in PATH_JSON:
-                    PATH_JSON[o] = origin_setting['path_conf'][o]
-            # setting.path_conf 中不存在，PATH_JSON中存的元素，需要删除
-            for p in list(PATH_JSON.keys()):
-                if p not in origin_setting['path_conf']:
-                    PATH_JSON.pop(p)
-            self.PATH_JSON = PATH_JSON
+            try:
+                PATH_JSON = json.load(f)
+                # 净化配置文件
+                # setting.path_conf 中存在，PATH_JSON中不存在的元素，需要新增并赋值初始设定值
+                for o in origin_setting['path_conf']:
+                    if o not in PATH_JSON:
+                        PATH_JSON[o] = origin_setting['path_conf'][o]
+                # setting.path_conf 中不存在，PATH_JSON中存的元素，需要删除
+                for p in list(PATH_JSON.keys()):
+                    if p not in origin_setting['path_conf']:
+                        PATH_JSON.pop(p)
+            except:
+                PATH_JSON = self.reset()
             f.close()
+        self.PATH_JSON = PATH_JSON
         self.updatePath()
+
+    def reset(self):
+        ret = {}
+        for o in origin_setting['path_conf']:
+            ret[o] = origin_setting['path_conf'][o]
+        return ret
 
     def updatePath(self):
         with open(path_json, 'w', encoding='utf-8') as f:
@@ -45,13 +54,24 @@ class load_path_conf():
 
 class load_cache_conf():
     def __init__(self):
+        self.CACHE_JSON = {}
         with open(cache_json, 'r', encoding='utf-8') as f:
-            CACHE_JSON = json.load(f)
+            try:
+                CACHE_JSON = json.load(f)
+            except:
+                CACHE_JSON = self.reset()
             f.close()
         self.CACHE_JSON = CACHE_JSON
+        self.updateCache()
+
+    def reset(self):
+        ret = {}
+        for o in origin_setting['cache_conf']:
+            ret[o] = origin_setting['cache_conf'][o]
+        return ret
 
     def updateCache(self):
-        with open(path_json, 'w', encoding='utf-8') as f:
+        with open(cache_json, 'w', encoding='utf-8') as f:
             f.write(json.dumps(self.CACHE_JSON))
             f.close()
 
@@ -82,7 +102,6 @@ class Ui_Mainwindows():
         self.ui.lineEdit_disorder_pool.setText(conf.path_conf.PATH_JSON[ROB_DISORDER_POOL_PATH])
         self.ui.lineEdit_report_path.setText(conf.path_conf.PATH_JSON[REPORT_PATH][ROB_BACKUP_REFORM])
         self.ui.lineEdit_configure.setText(conf.path_conf.PATH_JSON[LOCATION_MAP_CONF_JSON])
-
         # widget状态同步， 控件做出相应改变
         self.syncWidget()
 
@@ -181,6 +200,8 @@ class Ui_Mainwindows():
                     conf.path_conf.PATH_JSON['location_map_conf_path'] = conf.path_conf.PATH_JSON[
                                                                              'workspace_path'] + '/configure/location_map.json'
                     self.syncConfigure()
+                    conf.path_conf.updatePath()
+                    self.setTextBorwser('log', str)
 
     def setWorkspaceNull(self):
         # 设置工作空间根目录为空
@@ -188,7 +209,7 @@ class Ui_Mainwindows():
         self.ui.lineEdit_workspace_path.setText('')
         self.ui.pushButton_recommend.setEnabled(False)
 
-    def setTextBorwser(self, target):
+    def setTextBorwser(self, target, conetnt):
         if target == 'error':
             self.ui.textBrowser_error.append('<p>Hello World!</p>')
         elif target == 'log':
