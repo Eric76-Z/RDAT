@@ -51,6 +51,25 @@ class load_path_conf():
             f.write(json.dumps(self.PATH_JSON))
             f.close()
 
+    def isRecommend(self):
+        database_path = self.PATH_JSON['database_path']
+        re_database_path = self.PATH_JSON['workspace_path'] + '/database'
+        rob_backup_path = self.PATH_JSON['rob_backup_path']
+        re_rob_backup_path = self.PATH_JSON['workspace_path'] + '/rob_backup_reform'
+        rob_dicorder_pool_path = self.PATH_JSON['rob_dicorder_pool_path']
+        re_rob_dicorder_pool_path = self.PATH_JSON['workspace_path'] + '/rob_dicorder_pool'
+        report_path = self.PATH_JSON['report_path']
+        re_report_path = {
+            'rob_backup_reform': self.PATH_JSON['workspace_path'] + '/report/rob_backup_reform'
+        }
+        configure_path = self.PATH_JSON['configure_path']
+        re_configure_path = self.PATH_JSON['workspace_path'] + '/configure'
+        location_map_conf_path = self.PATH_JSON['location_map_conf_path']
+        re_location_map_conf_path = self.PATH_JSON['workspace_path'] + '/configure/location_map.json'
+
+        if database_path != re_database_path and rob_backup_path != re_rob_backup_path and rob_dicorder_pool_path != re_rob_dicorder_pool_path and report_path != re_report_path and configure_path != re_configure_path and location_map_conf_path != re_location_map_conf_path:
+            self.PATH_JSON['is_recommend'] = False
+
 
 class load_cache_conf():
     def __init__(self):
@@ -91,7 +110,7 @@ class Ui_Mainwindows():
         # 载入配置文件
         self.syncConfigure()
         # pushButton连接
-        self.buttonConnect()
+        self.signalConnect()
         # widgetInit状态初始化
         self.widgetInit()
 
@@ -140,8 +159,25 @@ class Ui_Mainwindows():
             self.ui.pushButton_start.setEnabled(False)
         else:
             self.ui.pushButton_start.setEnabled(True)
+        curr_index = conf.cache_conf.CACHE_JSON['tabWidget_rob_backup_reform']['curr_index']
+        if curr_index == 0:
+            if (conf.path_conf.PATH_JSON[WORKSPACE_PATH] != '' and conf.path_conf.PATH_JSON[WORKSPACE_PATH] and
+                    conf.path_conf.PATH_JSON[
+                        LOCATION_MAP_CONF_JSON] != ''):
+                self.ui.pushButton_start.setEnabled(True)
+            else:
+                self.ui.pushButton_start.setEnabled(False)
+        elif curr_index == 1:
+            if (conf.path_conf.PATH_JSON[ROB_BACKUP_PATH] != '' and conf.path_conf.PATH_JSON[
+                ROB_DISORDER_POOL_PATH] != '' and conf.path_conf.PATH_JSON[REPORT_PATH][ROB_BACKUP_REFORM] != '' and
+                    conf.path_conf.PATH_JSON[LOCATION_MAP_CONF_JSON] != ''):
+                self.ui.pushButton_start.setEnabled(True)
+            else:
+                self.ui.pushButton_start.setEnabled(False)
+        else:
+            pass
 
-    def buttonConnect(self):
+    def signalConnect(self):
         # =========机器人备份重组=========
         # 推荐模式
         self.ui.pushButton_workspace_path.clicked.connect(lambda: self.selectPath(WORKSPACE_PATH))
@@ -154,6 +190,8 @@ class Ui_Mainwindows():
         self.ui.pushButton_configure.clicked.connect(lambda: self.selectFile(LOCATION_MAP_CONF_JSON))
         # 开始重组
         self.ui.pushButton_start.clicked.connect(lambda: robBackupReform(conf))
+        # tab标签
+        self.ui.tabWidget_rob_backup_reform.currentChanged.connect(lambda: self.changeTab())
 
     def selectPath(self, target):
         folder_path = QFileDialog.getExistingDirectory(self.ui, "选择路径")
@@ -180,6 +218,12 @@ class Ui_Mainwindows():
                 self.ui.lineEdit_configure.setText(file_name[0])
                 conf.path_conf.PATH_JSON[LOCATION_MAP_CONF_JSON] = file_name[0]
             conf.path_conf.updatePath()
+
+    def changeTab(self):
+        conf.cache_conf.CACHE_JSON['tabWidget_rob_backup_reform'][
+            'curr_index'] = self.ui.tabWidget_rob_backup_reform.currentIndex()
+        self.syncConfigure()
+        conf.cache_conf.updateCache()
 
     def setRecommend(self, target):
         if target == ROB_BACKUP_REFORM:
