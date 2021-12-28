@@ -260,7 +260,10 @@ class Ui_Mainwindows():
         if target == 'error':
             self.ui.textBrowser_error.append(conetnt)
         elif target == 'log':
-            self.ui.textBrowser_log.append(conetnt)
+            self.ui.textBrowser_log.setHtml(conetnt)
+            # self.ui.textBrowser_log.append(conetnt)
+            # self.ui.textBrowser_log.setStyleSheet(style)
+
         else:
             print('写入未知错误')
 

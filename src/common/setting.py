@@ -73,12 +73,26 @@ LOCATION_MAP_CONF_JSON = 'location_map_conf_path'
 
 content = '''
   <div class='rpc-init'>
-    <li>机器人备份重组</li>
-    <li>[2021-12-28 14:03:26] 工作模式：推荐模式</li>
+    <div class="title" style="display: flex;">
+      <div class="label" style="flex: 1;">机器人备份重组详情</div>
+      <div class="time">[2021-12-28 14:03:26]</div>
+    </div>
+    <div class='content'>
+      <div>工作模式：推荐模式</div>
+      <div>工作空间根目录： F:/ws1</div>
+      <div>机器人备份路径：F:/ws1/rob_backup_reform</div>
+      <div>机器人输出报告路径：F:/ws1/report/rob_backup_reform</div>
+      <div>机器人备份乱序池路径：F:/ws1/rob_dicorder_pool</div>
+      <div>机器人配置文件：F:/ws1/configure/location_map.json</div>
+    </div>
   </div>
 '''
 style = '''
-.rpc-init p {
-  margin: 2px, 0;
+.rpc-init .title {
+  display: flex;
 }
+.rpc-init .title .label {
+  flex: 1;
+}
+
 '''

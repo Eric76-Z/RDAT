@@ -1,3 +1,6 @@
-.rpc-init p {
-  margin: 2px, 0;
+.rpc-init .title {
+  display: flex;
+}
+.rpc-init .title .label {
+  flex: 1;
 }
