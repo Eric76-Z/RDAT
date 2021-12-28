@@ -1,11 +1,1 @@
-{
-  "workspace_path": "D:/MyCode/pyCode/pygui/RDAT/src/functions",
-  "database_path": "E:/backup/database",
-  "rob_backup_path": "E:/github",
-  "rob_dicorder_pool_path": "E:/backup/rob_dicorder_pool",
-  "report_path": {
-    "rob_backup_reform": "D:/MyCode/pyCode/pygui/RDAT/src/functions"
-  },
-  "configure_path": "E:/backup/configure",
-  "location_map_conf_path": "E:/backup/configure/location_map.json"
-}
+{"workspace_path": "F:/ws1", "database_path": "F:/ws1/database", "rob_backup_path": "F:/ws1/rob_backup_reform", "rob_dicorder_pool_path": "F:/ws1/rob_dicorder_pool", "report_path": {"rob_backup_reform": "F:/ws1/report/rob_backup_reform"}, "configure_path": "F:/ws1/configure", "location_map_conf_path": "F:/ws1/configure/location_map.json"}

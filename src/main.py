@@ -137,6 +137,9 @@ class Ui_Mainwindows():
         #     self.ui.pushButton_start.setEnabled(False)
         # 进度条初始化
         self.ui.progressBar_result.setValue(0)
+        # 在信息框中打印当前状态
+        self.setTextBorwser(target='log', conetnt=content)
+
 
     def syncWidget(self):
         # pushButton初始化
@@ -255,9 +258,9 @@ class Ui_Mainwindows():
 
     def setTextBorwser(self, target, conetnt):
         if target == 'error':
-            self.ui.textBrowser_error.append('<p>Hello World!</p>')
+            self.ui.textBrowser_error.append(conetnt)
         elif target == 'log':
-            pass
+            self.ui.textBrowser_log.append(conetnt)
         else:
             print('写入未知错误')
 

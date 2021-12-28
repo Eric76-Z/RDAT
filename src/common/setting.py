@@ -70,3 +70,15 @@ ROB_BACKUP_PATH = 'rob_backup_path'
 ROB_DISORDER_POOL_PATH = 'rob_dicorder_pool_path'
 REPORT_PATH = 'report_path'
 LOCATION_MAP_CONF_JSON = 'location_map_conf_path'
+
+content = '''
+  <div class='rpc-init'>
+    <li>机器人备份重组</li>
+    <li>[2021-12-28 14:03:26] 工作模式：推荐模式</li>
+  </div>
+'''
+style = '''
+.rpc-init p {
+  margin: 2px, 0;
+}
+'''
