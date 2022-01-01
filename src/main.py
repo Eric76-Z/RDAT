@@ -140,7 +140,6 @@ class Ui_Mainwindows():
         # 在信息框中打印当前状态
         self.setTextBorwser(target='log', conetnt=content)
 
-
     def syncWidget(self):
         # pushButton初始化
         # 当未指定工作空间根目录时候，设置按钮不可用
