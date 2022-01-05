@@ -1,4 +1,5 @@
 import json
+import time
 
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtWidgets import QFileDialog, QApplication
@@ -41,10 +42,7 @@ class load_path_conf():
         self.updatePath()
 
     def reset(self):
-        ret = {}
-        for o in origin_setting['path_conf']:
-            ret[o] = origin_setting['path_conf'][o]
-        return ret
+        return origin_setting['path_conf']
 
     def updatePath(self):
         with open(path_json, 'w', encoding='utf-8') as f:
@@ -69,6 +67,8 @@ class load_path_conf():
 
         if database_path != re_database_path and rob_backup_path != re_rob_backup_path and rob_dicorder_pool_path != re_rob_dicorder_pool_path and report_path != re_report_path and configure_path != re_configure_path and location_map_conf_path != re_location_map_conf_path:
             self.PATH_JSON['is_recommend'] = False
+        else:
+            self.PATH_JSON['is_recommend'] = True
 
 
 class load_cache_conf():
@@ -125,7 +125,9 @@ class Ui_Mainwindows():
         self.syncWidget()
 
     def widgetInit(self):
-        self.ui.dockWidget.resize(150, 400)
+        # tabWidget初始化，停在上次打开一页
+        curr_index = conf.cache_conf.CACHE_JSON['tabWidget_rob_backup_reform']['curr_index']
+        self.ui.tabWidget_rob_backup_reform.setCurrentIndex(curr_index)
         # pushButton初始化
         # 当未指定工作空间根目录时候，设置按钮不可用
         # if conf.path_conf.PATH_JSON[WORKSPACE_PATH] == '':
@@ -138,8 +140,6 @@ class Ui_Mainwindows():
         #     self.ui.pushButton_start.setEnabled(False)
         # 进度条初始化
         self.ui.progressBar_result.setValue(0)
-        # 在信息框中打印当前状态
-        self.setTextBorwser(conetnt=content)
 
     def syncWidget(self):
         # pushButton初始化
@@ -153,18 +153,12 @@ class Ui_Mainwindows():
             self.ui.pushButton_edit_configure.setEnabled(False)
         else:
             self.ui.pushButton_edit_configure.setEnabled(True)
+        # isRecommend
+        conf.path_conf.isRecommend()
         # 开始按钮
-        if (conf.path_conf.PATH_JSON[ROB_BACKUP_PATH] == '' or conf.path_conf.PATH_JSON[ROB_DISORDER_POOL_PATH] == '' or \
-            conf.path_conf.PATH_JSON[REPORT_PATH][ROB_BACKUP_REFORM] == '' or conf.path_conf.PATH_JSON[
-                LOCATION_MAP_CONF_JSON] == '') or (
-                conf.path_conf.PATH_JSON[WORKSPACE_PATH] == '' or conf.path_conf.PATH_JSON[
-            LOCATION_MAP_CONF_JSON] == ''):
-            self.ui.pushButton_start.setEnabled(False)
-        else:
-            self.ui.pushButton_start.setEnabled(True)
         curr_index = conf.cache_conf.CACHE_JSON['tabWidget_rob_backup_reform']['curr_index']
         if curr_index == 0:
-            if (conf.path_conf.PATH_JSON[WORKSPACE_PATH] != '' and conf.path_conf.PATH_JSON[WORKSPACE_PATH] and
+            if (conf.path_conf.PATH_JSON[WORKSPACE_PATH] != '' and conf.path_conf.PATH_JSON['is_recommend'] == True and
                     conf.path_conf.PATH_JSON[
                         LOCATION_MAP_CONF_JSON] != ''):
                 self.ui.pushButton_start.setEnabled(True)
@@ -179,6 +173,9 @@ class Ui_Mainwindows():
                 self.ui.pushButton_start.setEnabled(False)
         else:
             pass
+        # 在信息框中打印当前状态
+        content = self.textBrowser(target='curr_state')
+        self.setTextBorwser(content=content)
 
     def signalConnect(self):
         # =========机器人备份重组=========
@@ -254,10 +251,47 @@ class Ui_Mainwindows():
         self.ui.lineEdit_workspace_path.setText('')
         self.ui.pushButton_recommend.setEnabled(False)
 
-    def setTextBorwser(self, conetnt):
-        self.ui.textBrowser_log.setHtml(conetnt)
-        # self.ui.textBrowser_log.append(conetnt)
+    def setTextBorwser(self, content):
+        # self.ui.textBrowser_log.setHtml(content)
+        self.ui.textBrowser_log.append(content)
         # self.ui.textBrowser_log.setStyleSheet(style)
+
+    def textBrowser(self, target):
+        content = ''
+        model = ''
+        if conf.cache_conf.CACHE_JSON['tabWidget_rob_backup_reform']['curr_index'] == 0:
+            model = '推荐模式'
+        elif conf.cache_conf.CACHE_JSON['tabWidget_rob_backup_reform']['curr_index'] == 1:
+            model = '自定义模式'
+        else:
+            print('模式选择出错')
+        if target == 'curr_state':
+            content = '''
+              <div class='rpc-init'>
+                <div class="title" style="display: flex;">
+                  <div class="label" style="flex: 1;">机器人备份重组详情</div>
+                  <div class="time">{0}</div>
+                </div>
+                <div class='content'>
+                  <div>工作模式：{1}</div>
+                  <div>工作空间根目录： {2}</div>
+                  <div>机器人备份路径：{3}</div>
+                  <div>机器人输出报告路径：{4}</div>
+                  <div>机器人备份乱序池路径：{5}</div>
+                  <div>机器人配置文件：{6}</div>
+                </div>
+              </div>
+            '''.format('[' + localTime() + ']', model, conf.path_conf.PATH_JSON['workspace_path'],
+                       conf.path_conf.PATH_JSON['rob_backup_path'],
+                       conf.path_conf.PATH_JSON['report_path']['rob_backup_reform'],
+                       conf.path_conf.PATH_JSON['rob_dicorder_pool_path'], conf.path_conf.PATH_JSON['configure_path'])
+        return content
+
+
+def localTime():
+    local_time = time.localtime()
+    local_time = time.strftime('%Y-%m-%d %H:%M:%S', local_time)
+    return local_time
 
 
 def main():

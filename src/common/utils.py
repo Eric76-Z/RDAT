@@ -100,5 +100,25 @@ def process_bar(percent, start_str='', end_str='', total_length=0):
     print(bar, end='', flush=True)
 
 
-def textBrowser_rob_backup_reform_init():
-    ret = ''
+# def textBrowser_rob_backup_reform_init(model, workspace_path, ):
+#     ret = ''
+#     local_time = time.localtime()
+#     local_time = time.strftime('%Y-%m-%d %H:%M:%S', local_time)
+#     print(local_time)
+#     content = '''
+#       <div class='rpc-init'>
+#         <div class="title" style="display: flex;">
+#           <div class="label" style="flex: 1;">机器人备份重组详情</div>
+#           <div class="time">{0}</div>
+#         </div>
+#         <div class='content'>
+#           <div>工作模式：{1}</div>
+#           <div>工作空间根目录： {2}</div>
+#           <div>机器人备份路径：{3}</div>
+#           <div>机器人输出报告路径：F:/ws1/report/rob_backup_reform</div>
+#           <div>机器人备份乱序池路径：F:/ws1/rob_dicorder_pool</div>
+#           <div>机器人配置文件：F:/ws1/configure/location_map.json</div>
+#         </div>
+#       </div>
+#     '''.format('[' + local_time + ']', model, workspace_path, rob_backup_path)
+
