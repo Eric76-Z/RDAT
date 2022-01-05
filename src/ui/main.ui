@@ -389,27 +389,15 @@ p, li { white-space: pre-wrap; }
                 </layout>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3,2">
+                <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3">
                  <item>
                   <widget class="QGroupBox" name="groupBox_log">
                    <property name="title">
-                    <string>记录</string>
+                    <string>日志</string>
                    </property>
                    <layout class="QGridLayout" name="gridLayout_3">
                     <item row="0" column="0">
                      <widget class="QTextBrowser" name="textBrowser_log"/>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QGroupBox" name="groupBox_error">
-                   <property name="title">
-                    <string>报错</string>
-                   </property>
-                   <layout class="QGridLayout" name="gridLayout_7">
-                    <item row="0" column="0">
-                     <widget class="QTextBrowser" name="textBrowser_error"/>
                     </item>
                    </layout>
                   </widget>
@@ -464,14 +452,20 @@ p, li { white-space: pre-wrap; }
   <widget class="QDockWidget" name="dockWidget">
    <property name="minimumSize">
     <size>
-     <width>180</width>
+     <width>150</width>
      <height>110</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>524287</width>
+     <width>524284</width>
      <height>524287</height>
+    </size>
+   </property>
+   <property name="baseSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
     </size>
    </property>
    <property name="autoFillBackground">

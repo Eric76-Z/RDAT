@@ -125,6 +125,7 @@ class Ui_Mainwindows():
         self.syncWidget()
 
     def widgetInit(self):
+        self.ui.dockWidget.resize(150, 400)
         # pushButton初始化
         # 当未指定工作空间根目录时候，设置按钮不可用
         # if conf.path_conf.PATH_JSON[WORKSPACE_PATH] == '':
@@ -138,7 +139,7 @@ class Ui_Mainwindows():
         # 进度条初始化
         self.ui.progressBar_result.setValue(0)
         # 在信息框中打印当前状态
-        self.setTextBorwser(target='log', conetnt=content)
+        self.setTextBorwser(conetnt=content)
 
     def syncWidget(self):
         # pushButton初始化
@@ -200,7 +201,6 @@ class Ui_Mainwindows():
         if folder_path != '':
             if target == WORKSPACE_PATH:
                 conf.path_conf.PATH_JSON[WORKSPACE_PATH] = folder_path
-                # self.setTextBorwser('error')
             elif target == ROB_BACKUP_PATH:
                 conf.path_conf.PATH_JSON[ROB_BACKUP_PATH] = folder_path
                 self.setWorkspaceNull()
@@ -247,7 +247,6 @@ class Ui_Mainwindows():
                                                                              'workspace_path'] + '/configure/location_map.json'
                     self.syncConfigure()
                     conf.path_conf.updatePath()
-                    self.setTextBorwser('log', str)
 
     def setWorkspaceNull(self):
         # 设置工作空间根目录为空
@@ -255,16 +254,10 @@ class Ui_Mainwindows():
         self.ui.lineEdit_workspace_path.setText('')
         self.ui.pushButton_recommend.setEnabled(False)
 
-    def setTextBorwser(self, target, conetnt):
-        if target == 'error':
-            self.ui.textBrowser_error.append(conetnt)
-        elif target == 'log':
-            self.ui.textBrowser_log.setHtml(conetnt)
-            # self.ui.textBrowser_log.append(conetnt)
-            # self.ui.textBrowser_log.setStyleSheet(style)
-
-        else:
-            print('写入未知错误')
+    def setTextBorwser(self, conetnt):
+        self.ui.textBrowser_log.setHtml(conetnt)
+        # self.ui.textBrowser_log.append(conetnt)
+        # self.ui.textBrowser_log.setStyleSheet(style)
 
 
 def main():
